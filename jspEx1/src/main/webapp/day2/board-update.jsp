@@ -15,6 +15,9 @@
 	 border-collapse: collapse;
 	 padding: 10px;
 	}
+	div {
+		margin-top : 5px;
+	}
 
 }
 	
@@ -22,7 +25,7 @@
 
 </head>
 <body>
-<form action="board-delete.jsp" name="board">
+<form action="board-delete.jsp">
 	<%@include file="db.jsp"%>	
 	<%
 		ResultSet rs = null;
@@ -39,10 +42,11 @@
 				<input  type="hidden" 
 						value="<%= rs.getString("boardNo") %>" 
 						name="boardNo"> 
-				<div>제목 : <%= rs.getString("title") %></div>
-				<div>내용 : <%= rs.getString("contents") %></div>
-				<button type="submit">삭제</button>
-				<button type="button" onclick="fnUpdate()">수정</button>
+				<div>제목 : <input value="<%= rs.getString("title") %>" name="title"></div>
+				<div>내용 : 
+					<textarea cols="50" rows="10" name="contents"><%= rs.getString("contents") %></textarea>
+				</div>
+				<button type="submit">저장</button>
 	<%			
 			} else {
 				out.println("삭제된 게시글 입니다.");
@@ -55,14 +59,3 @@
 </form>
 </body>
 </html>
-<script>
-
-	function fnUpdate(){
-		var form = document.board;
-		form.action = "board-update.jsp";
-		form.submit();
-	}
-</script>
-
-
-

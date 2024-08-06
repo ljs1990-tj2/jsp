@@ -77,6 +77,4 @@
 	function fnView(boardNo){
 		location.href="board-view.jsp?boardNo="+boardNo;
 	}
-	
-	
 </script>
