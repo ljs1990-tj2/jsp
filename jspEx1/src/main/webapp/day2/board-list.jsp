@@ -30,23 +30,27 @@
 		stmt = conn.createStatement();
 		String querytext = "SELECT * FROM TBL_BOARD";
 		rs = stmt.executeQuery(querytext);
-		
 		out.println("<table>");
 		out.println("<tr>");
-		out.println("<th>번호</th>");
-		out.println("<th>제목</th>");
-		out.println("<th>작성자</th>");
-		out.println("<th>조회수</th>");
-		out.println("<th>작성일</th>");
+		out.println("<th> 번호 </th>");
+		out.println("<th> 제목 </th>");
+		out.println("<th> 작성자 </th>");
+		out.println("<th> 조회수 </th>");
+		out.println("<th> 작성일 </th>");
 		out.println("</tr>");
-
+		
+		
+		
 	while (rs.next()) {
-		out.println("<tr><td>"+rs.getString("boardNo")+"</td>");
-		out.println("<td>" + rs.getString("title") + "</td>"); 
-		out.println("<td>" + rs.getString("userId")+ "</td>");
-		out.println("<td>" + rs.getString("cnt")+ "</td>");
-		out.println("<td>" + rs.getString("cdatetime")+ "</td></tr>");
+		out.println("<tr>");
+		out.println("<td>" + rs.getString("boardNo") + "</td>");
+		out.println("<td>" + rs.getString("title") + "</td>");
+		out.println("<td>" + rs.getString("userId") + "</td>");
+		out.println("<td>" + rs.getString("cnt") +"</td>");
+		out.println("<td>" + rs.getString("cdatetime") +"</td>");
+		out.println("</tr>");
 	}
+	
 	out.println("</table>");
 
 	} catch(SQLException ex) {
