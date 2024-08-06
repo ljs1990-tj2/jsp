@@ -30,7 +30,7 @@
 	<%
 	ResultSet rs = null;
 	Statement stmt = null;
-	
+	System.out.println(session.getAttribute("userId"));
 	try{
 		stmt = conn.createStatement();
 		String querytext = "SELECT * FROM TBL_BOARD";

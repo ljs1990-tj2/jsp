@@ -40,7 +40,8 @@
 			rs = stmt.executeQuery(querytext);
 			if(rs.next()){
 				out.println("로그인 성공!");
-				
+				session.setAttribute("userId", rs.getString("userId"));
+				response.sendRedirect("board-list.jsp");
 			} else {
 				out.println("로그인 실패!");
 			}
