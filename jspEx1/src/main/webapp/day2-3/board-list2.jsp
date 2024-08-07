@@ -34,7 +34,9 @@
 	System.out.println(session.getAttribute("userId"));
 	try{
 		stmt = conn.createStatement();
-		String querytext = "SELECT * FROM TBL_BOARD";
+		String querytext = 
+				"SELECT * FROM TBL_BOARD B "
+				+ "INNER JOIN TBL_USER U ON B.userId = U.userId";
 		rs = stmt.executeQuery(querytext);
 	%>
 		<table>
@@ -55,7 +57,7 @@
 					<%= rs.getString("title") %>
 				</a>
 			</td>
-			<td> <%= rs.getString("userId") %></td>
+			<td> <%= rs.getString("name") %></td>
 			<td> <%= rs.getString("cnt") %></td>
 			<td> <%= rs.getString("cdatetime") %></td>
 		</tr>
