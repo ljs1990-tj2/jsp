@@ -15,7 +15,12 @@
 	 border-collapse: collapse;
 	 padding: 10px;
 	}
-
+	.comment {
+	    width: 330px;
+	    height: 20px;
+	    padding: 5px;
+	    margin: 10px 0;
+	}
 }
 	
 </style>
@@ -28,12 +33,10 @@
 		ResultSet rs = null;
 		Statement stmt = null;
 		String boardNo = request.getParameter("boardNo");
-		
 		try{
 			stmt = conn.createStatement();
 			String querytext = "SELECT * FROM TBL_BOARD WHERE BOARDNO = " + boardNo;
 			rs = stmt.executeQuery(querytext);
-			
 			if(rs.next()){
 	%>	
 				<input  type="hidden" 
@@ -53,7 +56,18 @@
 		<%
 			}
 		%>			
-				
+				<hr>
+				<div>댓글 : 
+					<input class="comment" type="text" placeholder="댓글 쓰셈" name="comment">
+					<button type="button" onclick="fnComment()">등록</button>
+				</div>
+			<%
+				querytext = "SELECT * FROM TBL_COMMENT WHERE BOARDNO = " + boardNo;
+				rs = stmt.executeQuery(querytext);
+				while(rs.next()){
+			%>
+					<div> <%= rs.getString("userId") %> : <%= rs.getString("comment") %> </div>
+			<%	} %>		
 				
 	<%			
 			} else {
@@ -73,6 +87,17 @@
 		var form = document.board;
 		form.action = "board-update.jsp";
 		form.submit();
+	}
+	
+	function fnComment(){
+		var form = document.board;
+		console.log(form.boardNo.value);
+		var url = "comment-insert.jsp?boardNo="+ form.boardNo.value + "&comment=" + form.comment.value;
+		window.open(url , "reset", "width=500, height=500");
+	}
+	
+	function fnReload(){
+		location.reload();
 	}
 </script>
 

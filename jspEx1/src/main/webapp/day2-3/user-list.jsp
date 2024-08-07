@@ -30,6 +30,7 @@
 			<th>아이디</th>
 			<th>이름</th>
 			<th>권한</th>
+			<th>비밀번호</th>
 		</tr>
 	
 	<%@include file="db.jsp"%>	
@@ -51,6 +52,13 @@
 					<td><%= rs.getString("userId") %></td>
 					<td><%= rs.getString("name") %></td>
 					<td><%= status %></td>
+					<td>
+			<%	if(rs.getInt("cnt")>=5){ %>	
+			
+					<button onclick="fnReset('<%= rs.getString("userId") %>')">초기화</button>
+			<% } %>
+		
+					</td>
 				</tr>
 	<%			
 			}
@@ -59,6 +67,23 @@
 			out.println("SQLException : " + ex.getMessage());
 		}
 	%>
+
 	</table>
 </body>
 </html>
+<script>
+	function fnReset(userId){
+		/* location.href="pwd-reset.jsp?userId="+userId; */
+		window.open(
+			"pwd-reset.jsp?userId="+userId, "reset", "width=500, height=500");
+	}
+	
+	function fnReload(){
+		location.reload();
+	}
+</script>
+
+
+
+
+
