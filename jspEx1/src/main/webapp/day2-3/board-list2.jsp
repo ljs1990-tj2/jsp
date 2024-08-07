@@ -35,8 +35,15 @@
 	try{
 		stmt = conn.createStatement();
 		String querytext = 
-				"SELECT * FROM TBL_BOARD B "
-				+ "INNER JOIN TBL_USER U ON B.userId = U.userId";
+				  "SELECT B.boardNo, title, B.cnt, cdatetime, NAME, commentCnt "
+				+ "FROM tbl_board B "
+				+ "INNER JOIN tbl_user U ON B.userId = U.userId "
+				+ "LEFT JOIN ( "
+				+ 	"SELECT COUNT(*) AS commentCnt, boardNo "
+				+	"FROM tbl_comment "
+				+	"GROUP BY boardNo "
+				+ ") C ON B.boardNo = C.boardNo";
+;
 		rs = stmt.executeQuery(querytext);
 	%>
 		<table>
@@ -49,12 +56,16 @@
 		</tr>			
 	<%
 	while (rs.next()) {
+		String commentCnt = "";
+		if(rs.getString("commentCnt") != null){
+			commentCnt = "(" + rs.getString("commentCnt") + ")";
+		} 
 	%>
 		<tr>
 			<td> <%= rs.getString("boardNo") %></td>
 			<td> 
 				<a href="#" onclick="fnView('<%= rs.getString("boardNo") %>')">
-					<%= rs.getString("title") %>
+					<%= rs.getString("title") %> <%= commentCnt %>
 				</a>
 			</td>
 			<td> <%= rs.getString("name") %></td>
