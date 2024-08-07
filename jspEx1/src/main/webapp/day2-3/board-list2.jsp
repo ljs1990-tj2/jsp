@@ -26,6 +26,7 @@
 
 </head>
 <body>
+	<div><button onclick="location.href='login.jsp'">로그아웃</button></div>
 	<%@include file="db.jsp"%>	
 	<%
 	ResultSet rs = null;
